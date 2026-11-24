@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HEMIPT Ceremony Badge</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+<main>
+  <h1>HEMIPT Ceremony Badge</h1>
+  <p class="lead">Pick who you are, fill in your details and get your badge.</p>
+
+  <label for="cat">I am a</label>
+  <select id="cat">
+    <option value="matric">Matriculating student</option>
+    <option value="grad">Graduating student</option>
+    <option value="guest">Invited guest</option>
+  </select>
+
+  <label for="name">Full name</label>
+  <input id="name" type="text" placeholder="e.g. Sandra M. Bih" autocomplete="name" maxlength="40">
+
+  <div id="studentFields">
+    <label for="faculty">Faculty</label>
+    <select id="faculty"></select>
+
+    <label for="program">Programme <span class="hint">(e.g. Bachelor of Technology (B.Tech) Software Engineering)</span></label>
+    <input id="program" type="text" maxlength="70" placeholder="Your degree and course">
+  </div>
+
+  <div id="guestFields" class="hidden">
+    <label for="guestTitle">Your title <span class="hint">(optional)</span></label>
+    <input id="guestTitle" type="text" maxlength="40" placeholder="Special Guest &amp; Academic Patron">
+  </div>
+
+  <label for="photo">Your selfie <span class="hint">(optional)</span></label>
+  <input id="photo" type="file" accept="image/*">
+  <button id="clearPhoto" type="button" class="link hidden">Remove photo</button>
+
+  <div class="stage">
+    <canvas id="badge" width="900" height="1200" aria-label="Your badge preview"></canvas>
+  </div>
+
+  <div class="actions">
+    <button id="save" type="button">Save badge</button>
+    <button id="share" type="button" class="alt">Share on WhatsApp</button>
+  </div>
+  <p class="tiny" id="msg" role="status"></p>
+</main>
+
+<script src="logo-data.js?v=3"></script>
+<script src="script.js?v=3"></script>
+</body>
+</html>
