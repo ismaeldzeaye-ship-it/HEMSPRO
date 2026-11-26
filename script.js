@@ -27,10 +27,31 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
       tagline: "Honouring Accomplishment & Leadership"
     },
     guest: {
-      pillText: "INVITED GUEST", pill: "#0f4d2a", student: false,
+      pillText: "INVITED GUEST", pill: "#0f4d2a", guest: true,
       defaultTitle: "HONOURED GUEST",
       classLine: "CLASS OF 2026 CELEBRATION",
       tagline: "Celebrating New Beginnings & Academic Excellence"
+    },
+    lecturer: {
+      pillText: "LECTURER", pill: "#1a3a5c", staff: true,
+      field1Label: "Faculty", field1Placeholder: "e.g. Engineering & Technology",
+      field2Label: "Designation", field2Placeholder: "e.g. Senior Lecturer",
+      classLine: "CLASS OF 2026 JOINT CEREMONY",
+      tagline: "Shaping Minds & Building Futures"
+    },
+    admin: {
+      pillText: "ADMINISTRATOR", pill: "#4a2060", staff: true,
+      field1Label: "Department", field1Placeholder: "e.g. Registry & Student Affairs",
+      field2Label: "Position", field2Placeholder: "e.g. Head of Registry",
+      classLine: "CLASS OF 2026 JOINT CEREMONY",
+      tagline: "Empowering Excellence in Education"
+    },
+    facilitator: {
+      pillText: "FACILITATOR", pill: "#6b3a1f", staff: true,
+      field1Label: "Department", field1Placeholder: "e.g. Student Support Services",
+      field2Label: "Role", field2Placeholder: "e.g. Academic Facilitator",
+      classLine: "CLASS OF 2026 JOINT CEREMONY",
+      tagline: "Guiding the Journey of Learning"
     }
   };
   const MOTTO = "ORARE ET LABORARE";
@@ -56,7 +77,8 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
 
   const catEl = $("cat"), nameEl = $("name"), facEl = $("faculty"),
         progEl = $("program"), titleEl = $("guestTitle"), photoEl = $("photo"),
-        photoLiveEl = $("photoLive"), clearEl = $("clearPhoto"), msg = $("msg");
+        photoLiveEl = $("photoLive"), clearEl = $("clearPhoto"), msg = $("msg"),
+      staffDeptEl = $("staffDept"), staffRoleEl = $("staffRole");
 
   let logo = null, photo = null;
   let rafId = 0, blobPromise = null, blobTimer = 0, photoToken = 0;
@@ -208,6 +230,13 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
       if (prog) line(ctx, prog, 1066, GREEN, 780, 26, 16, "normal", "italic");
       line(ctx, cat.classLine, 1102, INK, 780, 36, 20, "bold");
       line(ctx, cat.tagline, 1130, GOLD, 780, 24, 16, "bold");
+    } else if (cat.staff) {
+      const dept = staffDeptEl.value.trim();
+      const role = staffRoleEl.value.trim();
+      if (dept) line(ctx, dept.toUpperCase(), 1034, INK, 780, 32, 18, "bold");
+      if (role) line(ctx, role, 1066, GREEN, 780, 26, 16, "normal", "italic");
+      line(ctx, cat.classLine, 1102, INK, 780, 36, 20, "bold");
+      line(ctx, cat.tagline, 1130, GOLD, 780, 24, 16, "bold");
     } else {
       const title = (titleEl.value.trim() || cat.defaultTitle).toUpperCase();
       line(ctx, title, 1042, INK, 780, 32, 18, "bold");
@@ -278,9 +307,16 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
   facEl.appendChild(frag);
 
   function refreshFields() {
-    const student = CATS[catEl.value].student;
-    $("studentFields").classList.toggle("hidden", !student);
-    $("guestFields").classList.toggle("hidden", student);
+    const cat = CATS[catEl.value];
+    $("studentFields").classList.toggle("hidden", !cat.student);
+    $("guestFields").classList.toggle("hidden", !cat.guest);
+    $("staffFields").classList.toggle("hidden", !cat.staff);
+    if (cat.staff) {
+      $("staffField1Label").textContent = cat.field1Label;
+      staffDeptEl.placeholder = cat.field1Placeholder;
+      $("staffField2Label").textContent = cat.field2Label;
+      staffRoleEl.placeholder = cat.field2Placeholder;
+    }
     schedule();
   }
 
@@ -306,7 +342,7 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
     schedule();
   });
 
-  [nameEl, progEl, titleEl].forEach(i => i.addEventListener("input", schedule));
+  [nameEl, progEl, titleEl, staffDeptEl, staffRoleEl].forEach(i => i.addEventListener("input", schedule));
   facEl.addEventListener("change", schedule);
   catEl.addEventListener("change", refreshFields);
 

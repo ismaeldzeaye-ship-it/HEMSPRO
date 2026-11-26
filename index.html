@@ -27,6 +27,9 @@
         <option value="matric">Matriculating student</option>
         <option value="grad">Graduating student</option>
         <option value="guest">Invited guest</option>
+        <option value="lecturer">Lecturer</option>
+        <option value="admin">Administrator</option>
+        <option value="facilitator">Facilitator</option>
       </select>
 
       <label for="name">Full name</label>
@@ -60,6 +63,23 @@
           type="text"
           maxlength="40"
           placeholder="e.g. Special Guest &amp; Academic Patron"
+        />
+      </div>
+
+      <div id="staffFields" class="hidden">
+        <label id="staffField1Label" for="staffDept">Faculty</label>
+        <input
+          id="staffDept"
+          type="text"
+          maxlength="60"
+          placeholder="e.g. Engineering &amp; Technology"
+        />
+        <label id="staffField2Label" for="staffRole">Designation</label>
+        <input
+          id="staffRole"
+          type="text"
+          maxlength="60"
+          placeholder="e.g. Senior Lecturer"
         />
       </div>
 
