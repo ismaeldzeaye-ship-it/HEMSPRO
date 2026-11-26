@@ -28,7 +28,7 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
     },
     guest: {
       pillText: "INVITED GUEST", pill: "#0f4d2a", student: false,
-      defaultTitle: "SPECIAL GUEST & ACADEMIC PATRON",
+      defaultTitle: "HONOURED GUEST",
       classLine: "CLASS OF 2026 CELEBRATION",
       tagline: "Celebrating New Beginnings & Academic Excellence"
     }
