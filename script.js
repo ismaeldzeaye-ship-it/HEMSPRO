@@ -346,6 +346,25 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
   facEl.addEventListener("change", schedule);
   catEl.addEventListener("change", refreshFields);
 
+  // ---------- logging ----------
+  function logBadgeSave() {
+    const cat = CATS[catEl.value];
+    const payload = {
+      name:     nameEl.value.trim() || "Unknown",
+      category: cat.pillText,
+      field1:   cat.student ? facEl.value
+              : cat.staff   ? staffDeptEl.value.trim()
+              : titleEl.value.trim(),
+      field2:   cat.student ? progEl.value.trim()
+              : cat.staff   ? staffRoleEl.value.trim()
+              : ""
+    };
+    fetch("log.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  }
   $("save").addEventListener("click", async () => {
     const btn = $("save");
     btn.disabled = true; btn.textContent = "Saving…";
@@ -358,6 +377,7 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
       a.href = url; a.download = "hemipt-badge-" + safe + ".png";
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 2000);
+      logBadgeSave();
       msg.textContent = "Saved. Check your Downloads or Photos.";
     } finally {
       btn.disabled = false; btn.textContent = "Save badge";
