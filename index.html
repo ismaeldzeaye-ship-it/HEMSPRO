@@ -12,7 +12,8 @@
     />
     <meta name="theme-color" content="#0f4d2a" />
     <title>HEMIPT Ceremony Badge</title>
-    <link rel="stylesheet" href="style.css?v=4" />
+    <link rel="icon" type="image/png" href="assets/badge.png" />
+    <link rel="stylesheet" href="style.css?v=5" />
   </head>
   <body>
     <main>
@@ -105,11 +106,46 @@
 
       <div class="actions">
         <button id="save" type="button">Save badge</button>
-        <button id="share" type="button" class="alt">Share on WhatsApp</button>
+        <button id="share" type="button" class="alt">Share</button>
+      </div>
+
+      <!-- shown on desktop / browsers without native share -->
+      <div id="sharePanel" class="share-panel hidden">
+        <p class="share-hint">Save your badge first, then share to:</p>
+        <div class="share-links">
+          <a
+            id="shareWa"
+            class="share-link share-wa"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >WhatsApp</a
+          >
+          <a
+            id="shareFb"
+            class="share-link share-fb"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Facebook</a
+          >
+          <a
+            id="shareX"
+            class="share-link share-x"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >X</a
+          >
+        </div>
+        <p class="share-note">
+          Instagram &amp; TikTok — save the badge above, then post from your
+          app.
+        </p>
       </div>
       <p class="tiny" id="msg" role="status"></p>
     </main>
 
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=5"></script>
   </body>
 </html>

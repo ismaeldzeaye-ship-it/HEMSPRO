@@ -341,10 +341,14 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
           catch (e) { if (e.name === "AbortError") return; }
         }
       }
-      window.open("https://wa.me/?text=" + encodeURIComponent(text + " Make yours: " + location.href), "_blank", "noopener,noreferrer");
-      msg.textContent = "Your device can’t share images directly. Save the badge first, then attach it in WhatsApp.";
+      // Fallback: show share panel with individual platform links
+      const pageUrl = location.href;
+      $("shareWa").href = "https://wa.me/?text=" + encodeURIComponent(text + " Make yours: " + pageUrl);
+      $("shareFb").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(pageUrl);
+      $("shareX").href  = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(pageUrl);
+      $("sharePanel").classList.remove("hidden");
     } finally {
-      btn.disabled = false; btn.textContent = "Share on WhatsApp";
+      btn.disabled = false; btn.textContent = "Share";
     }
   });
 

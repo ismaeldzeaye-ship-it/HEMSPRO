@@ -152,6 +152,19 @@ button.link:hover:not(:disabled) {
 }
 .photo-opt:hover:not(:disabled) { background: var(--green); color: #fff; }
 .photo-opt:disabled { opacity: 0.5; cursor: not-allowed; }
+.share-panel { margin-top: 12px; }
+.share-hint { font-size: 0.85rem; color: #4a5568; margin: 0 0 8px; }
+.share-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.share-link {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 46px; border-radius: 10px; font-size: 0.9rem; font-weight: 700;
+  text-decoration: none; color: #fff; transition: opacity 0.15s;
+}
+.share-link:hover { opacity: 0.85; }
+.share-wa { background: #25D366; }
+.share-fb { background: #1877F2; }
+.share-x  { background: #000; }
+.share-note { font-size: 0.78rem; color: #4a5568; margin: 8px 0 0; text-align: center; }
 .tiny {
   font-size: 0.85rem;
   color: #4a5568;
