@@ -393,7 +393,7 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
       if (blob) {
         const file = new File([blob], "hemipt-badge.png", { type: "image/png" });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          try { await navigator.share({ files: [file], text }); return; }
+          try { await navigator.share({ files: [file], text }); logBadgeSave(); return; }
           catch (e) { if (e.name === "AbortError") return; }
         }
       }
@@ -402,6 +402,7 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
       $("shareWa").href = "https://wa.me/?text=" + encodeURIComponent(text + " Make yours: " + pageUrl);
       $("shareFb").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(pageUrl);
       $("shareX").href  = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(pageUrl);
+      logBadgeSave();
       $("sharePanel").classList.remove("hidden");
     } finally {
       btn.disabled = false; btn.textContent = "Share";
