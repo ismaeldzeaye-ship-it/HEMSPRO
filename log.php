@@ -31,10 +31,12 @@ $row = [
     clean($data['field2'],   80),
 ];
 
-// Create data directory if it doesn't exist yet
+// Create data directory and protect it on first run
 $dir = __DIR__ . '/data';
 if (!is_dir($dir)) {
     mkdir($dir, 0755, true);
+    // Block direct browser access to this directory
+    file_put_contents($dir . '/.htaccess', "Order allow,deny\nDeny from all\n");
 }
 
 $logFile = $dir . '/badge-log.csv';
