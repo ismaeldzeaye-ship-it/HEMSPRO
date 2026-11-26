@@ -309,29 +309,41 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
   catEl.addEventListener("change", refreshFields);
 
   $("save").addEventListener("click", async () => {
-    const blob = await getBlob();
-    if (!blob) { msg.textContent = "Could not create the image. Please try again."; return; }
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    const safe = (nameEl.value.trim() || "badge").replace(/[^a-z0-9]+/gi, "-").toLowerCase();
-    a.href = url; a.download = "hemipt-badge-" + safe + ".png";
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 2000);
-    msg.textContent = "Saved. Check your Downloads or Photos.";
+    const btn = $("save");
+    btn.disabled = true; btn.textContent = "Saving…";
+    try {
+      const blob = await getBlob();
+      if (!blob) { msg.textContent = "Could not create the image. Please try again."; return; }
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      const safe = (nameEl.value.trim() || "badge").replace(/[^a-z0-9]+/gi, "-").toLowerCase();
+      a.href = url; a.download = "hemipt-badge-" + safe + ".png";
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+      msg.textContent = "Saved. Check your Downloads or Photos.";
+    } finally {
+      btn.disabled = false; btn.textContent = "Save badge";
+    }
   });
 
   $("share").addEventListener("click", async () => {
-    const text = "I’m at the HEMIPT Joint Matriculation & Graduation Ceremony, Class of 2026!";
-    const blob = await getBlob();
-    if (blob) {
-      const file = new File([blob], "hemipt-badge.png", { type: "image/png" });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        try { await navigator.share({ files: [file], text }); return; }
-        catch (e) { if (e.name === "AbortError") return; }
+    const btn = $("share");
+    btn.disabled = true; btn.textContent = "Sharing…";
+    try {
+      const text = "I’m at the HEMIPT Joint Matriculation & Graduation Ceremony, Class of 2026!";
+      const blob = await getBlob();
+      if (blob) {
+        const file = new File([blob], "hemipt-badge.png", { type: "image/png" });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try { await navigator.share({ files: [file], text }); return; }
+          catch (e) { if (e.name === "AbortError") return; }
+        }
       }
+      window.open("https://wa.me/?text=" + encodeURIComponent(text + " Make yours: " + location.href), "_blank", "noopener,noreferrer");
+      msg.textContent = "Your device can’t share images directly. Save the badge first, then attach it in WhatsApp.";
+    } finally {
+      btn.disabled = false; btn.textContent = "Share on WhatsApp";
     }
-    window.open("https://wa.me/?text=" + encodeURIComponent(text + " Make yours: " + location.href), "_blank", "noopener");
-    msg.textContent = "Your phone can’t share images from here. Save the badge, then attach it in WhatsApp.";
   });
 
   // ---------- init ----------
