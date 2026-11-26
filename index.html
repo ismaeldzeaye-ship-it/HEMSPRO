@@ -67,10 +67,33 @@
         />
       </div>
 
-      <label for="photo"
-        >Your selfie <span class="hint">(optional)</span></label
-      >
-      <input id="photo" type="file" accept="image/*" />
+      <label>Your selfie <span class="hint">(optional)</span></label>
+      <div class="photo-opts">
+        <button id="takePhoto" type="button" class="photo-opt">
+          📷 Take photo
+        </button>
+        <button id="pickPhoto" type="button" class="photo-opt">
+          🖼 Choose from gallery
+        </button>
+      </div>
+      <!-- hidden inputs — triggered by the buttons above -->
+      <input
+        id="photoLive"
+        type="file"
+        accept="image/*"
+        capture="user"
+        class="hidden"
+        aria-hidden="true"
+        tabindex="-1"
+      />
+      <input
+        id="photo"
+        type="file"
+        accept="image/*"
+        class="hidden"
+        aria-hidden="true"
+        tabindex="-1"
+      />
       <button id="clearPhoto" type="button" class="link hidden">
         Remove photo
       </button>

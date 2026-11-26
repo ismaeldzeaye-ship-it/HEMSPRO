@@ -133,6 +133,25 @@ button.link {
 button.link:hover:not(:disabled) {
   opacity: 0.72;
 }
+.photo-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.photo-opt {
+  background: #fff;
+  color: var(--green);
+  border: 1.5px solid var(--green);
+  font-size: 0.95rem;
+  min-height: 48px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.photo-opt:hover:not(:disabled) { background: var(--green); color: #fff; }
+.photo-opt:disabled { opacity: 0.5; cursor: not-allowed; }
 .tiny {
   font-size: 0.85rem;
   color: #4a5568;

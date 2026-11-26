@@ -56,7 +56,7 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
 
   const catEl = $("cat"), nameEl = $("name"), facEl = $("faculty"),
         progEl = $("program"), titleEl = $("guestTitle"), photoEl = $("photo"),
-        clearEl = $("clearPhoto"), msg = $("msg");
+        photoLiveEl = $("photoLive"), clearEl = $("clearPhoto"), msg = $("msg");
 
   let logo = null, photo = null;
   let rafId = 0, blobPromise = null, blobTimer = 0, photoToken = 0;
@@ -284,8 +284,7 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
     schedule();
   }
 
-  photoEl.addEventListener("change", async e => {
-    const f = e.target.files[0];
+  async function handlePhotoFile(f) {
     if (!f) return;
     msg.textContent = "Loading photo…";
     const token = ++photoToken;
@@ -296,10 +295,13 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
     clearEl.classList.remove("hidden");
     msg.textContent = "";
     schedule();
-  });
-
+  }
+  photoEl.addEventListener("change", e => handlePhotoFile(e.target.files[0]));
+  photoLiveEl.addEventListener("change", e => handlePhotoFile(e.target.files[0]));
+  $("takePhoto").addEventListener("click", () => { photoLiveEl.value = ""; photoLiveEl.click(); });
+  $("pickPhoto").addEventListener("click", () => { photoEl.value = ""; photoEl.click(); });
   clearEl.addEventListener("click", () => {
-    photoToken++; photo = null; photoEl.value = "";
+    photoToken++; photo = null; photoEl.value = ""; photoLiveEl.value = "";
     clearEl.classList.add("hidden");
     schedule();
   });
