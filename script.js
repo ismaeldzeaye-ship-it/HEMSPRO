@@ -409,9 +409,17 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
     }
   });
 
+  // ---------- action gating ----------
+  function refreshActions() {
+    const ok = nameEl.value.trim().length > 0;
+    $("save").disabled  = !ok;
+    $("share").disabled = !ok;
+  }
+  nameEl.addEventListener("input", refreshActions);
   // ---------- init ----------
   drawBase();
   refreshFields();
+  refreshActions();
   (async () => {
     for (const src of LOGO_SRCS) {
       const img = await loadImage(src);
