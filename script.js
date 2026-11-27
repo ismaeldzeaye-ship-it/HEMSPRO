@@ -26,6 +26,11 @@ const HEMIPT_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZEAAAG4CAYAA
       classLine: "CLASS OF 2026 - GRADUATING CLASS",
       tagline: "Honouring Accomplishment & Leadership"
     },
+    continuing: {
+      pillText: "CONTINUING STUDENT", pill: "#2d6a4f", student: true,
+      classLine: "CLASS OF 2026 JOINT CEREMONY",
+      tagline: "Growing, Learning & Moving Forward"
+    },
     guest: {
       pillText: "INVITED GUEST", pill: "#0f4d2a", guest: true,
       defaultTitle: "HONOURED GUEST",
